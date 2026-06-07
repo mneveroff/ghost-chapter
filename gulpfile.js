@@ -64,37 +64,31 @@ function js(done) {
     ], handleError(done));
 }
 
+const zipSrcGlobs = [
+    '**',
+    '!node_modules', '!node_modules/**',
+    '!dist', '!dist/**',
+    '!yarn-error.log',
+    '!.git', '!.git/**',
+    '!.gitignore',
+    '!.github', '!.github/**',
+    '!.vscode', '!.vscode/**'
+];
+
 function zipper(done) {
     const packageData = require('./package.json');
     const versionedFilename = `${packageData.name}-${packageData.version}.zip`;
     const latestFilename = `${packageData.name}.zip`;
+    const zipSrcOptions = {encoding: false};
 
     pump([
-        src([
-            '**',
-            '!node_modules', '!node_modules/**',
-            '!dist', '!dist/**',
-            '!yarn-error.log',
-            '!.git', '!.git/**', // exclude .git directory
-            '!.gitignore', // exclude .gitignore file
-            '!.github', '!.github/**', // exclude .github directory
-            '!.vscode', '!.vscode/**' // exclude .vscode directory
-        ]),
+        src(zipSrcGlobs, zipSrcOptions),
         zip(versionedFilename),
         dest('dist/')
     ], handleError(done));
-    
+
     pump([
-        src([
-            '**',
-            '!node_modules', '!node_modules/**',
-            '!dist', '!dist/**',
-            '!yarn-error.log',
-            '!.git', '!.git/**', // exclude .git directory
-            '!.gitignore', // exclude .gitignore file
-            '!.github', '!.github/**', // exclude .github directory
-            '!.vscode', '!.vscode/**' // exclude .vscode directory
-        ]),
+        src(zipSrcGlobs, zipSrcOptions),
         zip(latestFilename),
         dest('dist/')
     ], handleError(done));

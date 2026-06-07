@@ -24,7 +24,7 @@ Chapter 1.6.0 requires Ghost 6. Upgrade your instance before uploading this them
 1. Back up your database and `content/` directory.
 2. Upgrade to the latest Ghost 5.x minor release, then to the latest Ghost 6.x. Ghost's [major version update guide](https://docs.ghost.org/update-major-version) covers the full sequence.
 3. Ensure the host runs **Node.js 22** (Ghost 6 requirement).
-4. Upload and activate Chapter 1.6.0+ from a fresh `npm run zip` build.
+4. Upload and activate Chapter 1.6.0+ from a fresh `pnpm run zip` build.
 
 **Theme changes in 1.6.0 for Ghost 6:**
 
@@ -36,20 +36,20 @@ Chapter 1.6.0 requires Ghost 6. Upgrade your instance before uploading this them
 
 ## Development
 
-Styles are compiled using Gulp/PostCSS. You need **Node.js 22+** and npm.
+Styles are compiled using Gulp/PostCSS. You need **Node.js 22+** and [pnpm](https://pnpm.io/installation).
 
 ```bash
 # Install dependencies
-npm install
+pnpm install
 
 # Build assets and watch for changes
-npm run dev
+pnpm dev
 ```
 
 For live preview against a local Ghost install, run these in separate terminals:
 
 ```bash
-npm run dev
+pnpm dev
 
 # From your Ghost install directory
 ghost run -D
@@ -60,7 +60,7 @@ Edit files under `assets/css/`; compiled output goes to `assets/built/`.
 ### Build a release zip
 
 ```bash
-npm run zip
+pnpm run zip
 ```
 
 This writes `dist/chapter.zip` (and a versioned copy). Upload that file in Ghost Admin.
@@ -68,7 +68,7 @@ This writes `dist/chapter.zip` (and a versioned copy). Upload that file in Ghost
 ### Theme compatibility check
 
 ```bash
-npm test
+pnpm test
 ```
 
 Runs [GScan](https://gscan.ghost.org/) against Ghost 6 rules.
