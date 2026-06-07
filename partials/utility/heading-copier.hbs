@@ -1,0 +1,15 @@
+<script>
+    document.querySelectorAll('.gh-content h1, .gh-content h2, .gh-content h3, .gh-content h4, .gh-content h5, .gh-content h6').forEach((heading) => {
+        heading.addEventListener('click', (event) => {
+            if (event.target === heading) {
+                const anchor = `${window.location.href.split('#')[0]}#${heading.id}`;
+                navigator.clipboard.writeText(anchor);
+                // Show the "Link copied!" message
+                heading.classList.add('show-copy-message');
+                setTimeout(() => {
+                    heading.classList.remove('show-copy-message');
+                }, 3000);
+            }
+        });
+    });
+</script>

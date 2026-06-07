@@ -1,0 +1,14 @@
+{{#get "posts" limit="3" filter="tags:[{{post.tags}}]+id:-{{post.id}}" as |related|}}
+    {{#if related}}
+        <section class="related-wrapper gh-canvas">
+            <div class="inner-wrapper dg-surface">
+                <h3 class="related-title">You might also like...</h3>
+                <div class="related-feed">
+                    {{#foreach posts}}
+                        {{> chapter/post-line}}
+                    {{/foreach}}
+                </div>
+            </div>
+        </section>
+    {{/if}}
+{{/get}}

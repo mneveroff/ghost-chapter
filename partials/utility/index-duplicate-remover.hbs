@@ -1,0 +1,32 @@
+{{!-- A JS-based solution to hide the dupliacte posts if they were showcased --}}
+{{#match @custom.showcase_post 'Latest Featured'}}
+    {{#if @custom.hide_showcase_duplicate}}
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Function to remove duplicate posts
+                function removeDuplicates() {
+                    var showcasedPost = document.querySelector('.post-card-showcased');
+                    if (showcasedPost) {
+                        var showcasedPostUrl = showcasedPost.querySelector('.post-card-content-link').href;
+
+                        var posts = document.querySelectorAll('.post-card:not(.post-card-showcased)');
+                        posts.forEach(function(post) {
+                            var postUrl = post.querySelector('.post-card-content-link').href;
+                            if (postUrl === showcasedPostUrl) {
+                                post.remove();
+                            }
+                        });
+                    }
+                }
+
+                // Run the function initially
+                removeDuplicates();
+
+                // Run the function whenever a change is made to the post-feed element or its children
+                var observer = new MutationObserver(removeDuplicates);
+                var targetNode = document.querySelector('.post-feed');
+                observer.observe(targetNode, { childList: true, subtree: true });
+            });
+        </script>
+    {{/if}}
+{{/match}}

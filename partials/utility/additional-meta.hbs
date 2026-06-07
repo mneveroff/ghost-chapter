@@ -1,0 +1,10 @@
+{{#contentFor "additional_meta"}}
+            {{#if @custom.show_author}}
+                {{#foreach authors}}
+                        {{#if @first}}
+                            <meta name="author" content="{{name}}">
+                        {{/if}}
+                {{/foreach}}
+            {{/if}}
+            <meta name="publish_date" property="og:publish_date" content="{{date published_at format="yyyy-MM-ddTHH:mm:sszzz"}}">
+        {{/contentFor}}

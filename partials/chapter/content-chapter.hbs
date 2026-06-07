@@ -1,0 +1,77 @@
+<article class="single ch-post-chapter {{post_class}}">
+    <div class="ch-chapter-wrapper">
+        {{> chapter/chapters-nav chapter-name-tag=tags.[1].slug selected-post-id=id previousOrderTag=tags.[2] nextOrderTag=tags.[2] currentOrderTag=tags.[2] lazyLoad=true}}
+        
+        <div class="single-content gh-content gh-canvas">
+            {{#match @page.show_title_and_feature_image}}
+                <header class="single-header gh-canvas">
+                    {{#is "post"}}
+                        <div class="single-meta">
+                            <span class="single-meta-item single-meta-date">
+                                <time datetime="{{date format="YYYY-MM-DD"}}">
+                                    {{date published_at}}
+                                </time>
+                            </span>
+                            {{#if reading_time}}
+                                <span class="single-meta-item single-meta-length">
+                                    {{reading_time}}
+                                </span>
+                            {{/if}}
+                            
+                            {{#primary_tag}}
+                                <span class="single-meta-item single-meta-tag">
+                                    <a class="post-tag post-tag-{{slug}}" href="{{url}}">
+                                        {{name}}
+                                    </a>
+                                </span>
+                            {{/primary_tag}}
+                        </div>
+                    {{/is}}
+
+                    <h1 class="single-title js-toc-ignore">{{title}}</h1>
+
+                    {{#if feature_image}}
+                        {{#unless no_image}}
+                            <figure class="single-media kg-width-{{width}}">
+                                <div class="u-placeholder horizontal">
+                                    <img
+                                        class="u-object-fit"
+                                        srcset="{{> utility/srcset}}"
+                                        sizes="(min-width: 1200px) 920px, 92vw"
+                                        src="{{img_url feature_image size="l"}}"
+                                        alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}"
+                                    >
+                                </div>
+
+                                {{#if feature_image_caption}}
+                                    <figcaption>{{feature_image_caption}}</figcaption>
+                                {{/if}}
+                            </figure>
+                        {{/unless}}
+                    {{/if}}
+
+                    {{#if custom_excerpt}}
+                        <div class="single-excerpt">
+                            {{custom_excerpt}}
+                        </div>
+                    {{/if}}
+
+                </header>
+            {{/match}}           
+
+            {{content}}
+        </div>
+
+        {{#if @custom.show_post_outline}}
+                {{> chapter/outline class="gh-content"}}
+            {{else}}
+                {{#foreach tags visibility="internal" as |current-tag|}}
+                    {{#match current-tag.slug "hash-chapter-outline-show"}}
+                        {{> chapter/outline class="gh-content"}}
+                    {{/match}}
+                {{/foreach}}
+            {{/if}}     
+    </div>
+
+    {{> chapter/content-chapter-footer}}
+</article>

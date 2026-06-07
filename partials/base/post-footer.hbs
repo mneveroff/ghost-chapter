@@ -1,0 +1,27 @@
+{{#is 'post'}}
+    {{#if @custom.show_related_posts}}
+        {{> base/related-posts}}
+    {{else}}
+        {{#foreach post.tags visibility="internal" as |current-tag|}}
+            {{#match current-tag.slug "hash-chapter-related-show"}}
+                {{> base/related-posts post=../post}}
+            {{/match}}
+        {{/foreach}}
+    {{/if}}
+    {{#post}}
+        {{> base/comments}}
+        {{> utility/additional-meta}}
+    {{/post}}
+{{else}}
+    {{!-- This entire blcok doesn't work cause Ghost doesn't allow comments nor related on Pages. --}}
+    {{!-- {{#page}}
+        {{#foreach tags visibility="internal" as |current-tag|}}
+            {{#match current-tag.slug "hash-chapter-related-show"}}
+                {{> base/related-posts}}
+            {{/match}}
+            {{#match current-tag.slug "hash-chapter-comments-show"}}
+                {{> base/comments}}
+            {{/match}}
+        {{/foreach}}
+    {{/page}} --}}
+{{/is}}

@@ -1,0 +1,60 @@
+<aside class="ch-outline-container {{class}}">
+    <div class="ch-outline dg-surface dg-elevation-100"></div>
+</aside>
+
+<div class="ch-outline-icon dg-surface dg-elevation-100">
+    {{> icons/document class='doc-icon'}}
+    {{> icons/cross class='close-icon'}}
+
+    <script>
+        // Get the elements
+        const outlineIcon = document.querySelector('.ch-outline-icon');
+        const outlineContainer = document.querySelector('.ch-outline-container');
+        const outline = document.querySelector('.ch-outline');
+        const content = document.querySelector('.gh-content.gh-canvas');
+
+        // Define a variable to hold the isIntersecting value
+        let isContentIntersecting = false;
+
+        // Check local storage and set classes accordingly
+        if (localStorage.getItem('ch-outline-expanded') === 'true') {
+            outlineContainer.classList.add('expanded');
+            outlineIcon.classList.add('cross');
+        }
+
+        outlineIcon.addEventListener('click', function() {
+            // Toggle expanded state
+            const isExpanded = outlineContainer.classList.toggle('expanded');
+            outlineIcon.classList.toggle('cross');
+
+            // Update local storage
+            localStorage.setItem('ch-outline-expanded', isExpanded);
+
+            // Only scroll if the content is not in view
+            if (!isContentIntersecting) {
+                outline.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+
+        // Set up the intersection observer
+        const observer = new IntersectionObserver(function(entries) {
+            // The callback will be called for each entry
+            // Each entry describes an intersection change for one observed
+            // target element
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // The target element is in the viewport
+                    outlineIcon.classList.add('visible');
+                    isContentIntersecting = true;
+                } else {
+                    // The target element is not in the viewport
+                    outlineIcon.classList.remove('visible');
+                    isContentIntersecting = false;
+                }
+            });
+        });
+
+        // Start observing the .gh-content.gh-canvas element
+        observer.observe(content);
+    </script>
+</div>

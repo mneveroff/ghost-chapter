@@ -1,0 +1,82 @@
+<aside class="ch-sidebar">
+    <section class="gh-section ">
+        {{#match @custom.showcase_post 'Latest Posted'}}
+            <h2 class="gh-section-title">About</h2>
+        {{else}}
+            {{#match @custom.showcase_post 'Latest Featured'}}
+                <h2 class="gh-section-title">About</h2>
+            {{/match}}
+        {{/match}}
+
+        <div class="gh-about">
+            {{#if @custom.show_main_author_on_homepage}}
+            {{#get 'authors' limit="1" order="id asc" as |author|}}
+                {{#foreach author limit="1"}}
+                    <img class="gh-about-icon author-image" src="{{img_url profile_image size="xs"}}" alt="{{name}}">
+                {{/foreach}}
+            {{/get}}
+            {{else}}
+                {{#if @site.icon}}
+                    <img class="gh-about-icon" src="{{@site.icon}}" alt="{{@site.title}}">
+                {{/if}}
+            {{/if}}
+
+            <section class="gh-about-wrapper">
+                <h3 class="gh-about-title">{{@site.title}}</h3>
+
+                {{#if @site.description}}
+                    <p class="gh-about-description">{{@site.description}}</p>
+                {{/if}}
+            </section>
+        </div>
+
+        {{#if @site.members_enabled}}
+            {{> chapter/sidebar--cta}}
+        {{/if}}
+    </section>
+
+    {{#is "home"}}
+        {{#get "posts" filter="featured:true" limit="3" as |featured|}}
+            {{#if featured}}
+                <section class="gh-section">
+                    <h3 class="gh-section-title">Featured</h3>
+
+                    <div class="gh-featured gh-feed">
+                        {{#foreach featured limit="3"}}
+                            {{> chapter/post-line}}
+                        {{/foreach}}
+                    </div>
+                </section>
+            {{/if}}
+        {{/get}}
+
+        {{!-- Not sure why limiting to 5 here returns random quantity, hence limit in foreach --}}
+        {{#get "tags" include="count.posts" limit="5" order="count.posts desc" as |topic|}}
+            <section class="gh-section">
+                <h3 class="gh-section-title">Popular Topics</h3>
+
+                <div class="gh-topic">
+                    {{#foreach topic limit="5"}}
+                        <a class="gh-topic-item" href="{{url}}">
+                            <h3 class="gh-topic-name">{{name}}</h3>
+                            <span class="gh-topic-count">
+                                {{plural count.posts empty="0 issues" singular="% issue" plural="% issues"}}
+                            </span>
+                        </a>
+                    {{/foreach}}
+                </div>
+            </section>
+        {{/get}}
+
+        {{#if @site.recommendations_enabled}}
+            <section class="gh-section">
+                <h3 class="gh-section-title">Recommendations</h3>
+
+                <div class="gh-recommendations">
+                    {{recommendations limit="3"}}
+                </div>
+            </section>
+        {{/if}}
+    {{/is}}
+    
+</aside>

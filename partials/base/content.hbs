@@ -1,0 +1,25 @@
+<div class="single-content gh-content gh-canvas">
+    {{!-- This is not encased to allow child elements to take main, wide and full breakpoiints --}}
+    {{content}}
+
+    {{#is 'post'}}
+        {{#if @custom.show_post_outline}}
+            {{> chapter/outline}}
+        {{else}}
+            {{#foreach tags visibility="internal" as |current-tag|}}
+                {{#match current-tag.slug "hash-chapter-outline-show"}}
+                    {{> chapter/outline}}
+                {{/match}}
+            {{/foreach}}
+        {{/if}}     
+    {{/is}}
+
+    {{!-- It's likely possible to achieve differently but the "has" approach doesn't seem to have access to internal tags --}}
+    {{#is 'page'}}
+        {{#foreach tags visibility="internal" as |current-tag|}}
+            {{#match current-tag.slug "hash-chapter-outline-show"}}
+                {{> chapter/outline}}
+            {{/match}}
+        {{/foreach}}
+    {{/is}}
+</div>

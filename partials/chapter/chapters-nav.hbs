@@ -1,0 +1,71 @@
+<aside class="ch-sidebar">
+
+    <section class="gh-section dg-surface">
+        <aside class="ch-sidebar-title">
+            <section class="gh-section">
+                <h3 class="gh-section-title gh-search-icon" data-ghost-search="">
+                    {{search}}
+                    Search chapters
+                    <a class="u=permalink" aria-label="search"></a>
+                </h3>
+            </section>
+            <div class="chevron-container gh-icon-btn">
+                {{> icons/chevron-up}}
+            </div>
+        </aside>
+        
+        <script>
+            // Using sidebars internal API requesting to build a tree of chapters
+            let chapters = [];
+
+            function postChapter(order, slug, title, url, orderTag, current) {
+                chapters.push({
+                    order: order,
+                    slug: slug,
+                    title: title,
+                    url: url,
+                    orderTag: orderTag,
+                    current: current
+                });
+            }
+        </script>
+
+        <div class="gh-feed">
+
+            {{#get 'tags' filter="slug:~^'hash-chapter-order-'+visibility:internal" order="slug asc" limit="100" as |order-tags|}}
+
+                {{#if order-tags}}
+                    {{#foreach order-tags visibility="internal" as |tag|}}
+                        {{#if @first}}
+                            {{> chapter/chapters-nav-item type="header" postId=../../selected-post-id chapterOrderTag=tag.slug chapterNametag=../../chapter-name-tag lazyLoad=true}}
+                        {{else}}
+                            {{!-- Checking if tag ends with 00 to see if it's a subheader --}}
+                            {{> chapter/chapters-nav--extender tagId=tag.id postId=../../selected-post-id chapterOrderTag=tag.slug chapterNametag=../../chapter-name-tag lazyLoad=true}}
+                        {{/if}}
+                    {{/foreach}}
+                {{else}}
+                    <p>Chapters internal tags are likely to be misconfigured</p>
+                {{/if}}
+
+            {{/get}}
+
+        </div>
+    </section>
+
+    <script>
+        document.querySelector('.chevron-container').addEventListener('click', function() {
+            const feed = document.querySelector('.gh-feed');
+            const sectionTitle = document.querySelector('.gh-section-title');
+
+            feed.classList.toggle('collapsed');
+            this.classList.toggle('rotated');
+
+            let delay = sectionTitle.classList.contains('collapsed') ? 20 : 480;
+
+            setTimeout(function() {
+                sectionTitle.classList.toggle('collapsed');
+            }, delay);
+        });
+    </script>
+
+</aside>

@@ -1,0 +1,28 @@
+{{!-- Has to stay in /partials as per documentation: https://ghost.org/docs/themes/helpers/recommendations/ even if I'd prefer to organise it away --}}
+{{#if recommendations}}
+    <div class="recommendations">
+        {{#foreach recommendations as |rec|}}
+        <div class="recommendation">
+            <a href="{{rec.url}}" data-recommendation="{{rec.id}}" target="_blank" rel="noopener">
+                <div class="recommendation-top-row">
+                    <div class="recommendation-favicon">
+                        {{#if rec.favicon}}
+                            <img src="{{rec.favicon}}" alt="{{rec.title}}" loading="lazy" onerror="this.style.display='none';">
+                        {{else}}
+                            <img src="{{asset "images/ghost-logo-orb.png"}}" alt="{{rec.title}}" loading="lazy" onerror="this.style.display='none';">
+                        {{/if}}
+                    </div>
+                    <div class="recommendation-title-and-url">
+                        <h5 class="recommendation-title">{{rec.title}}</h5>
+                        <span class="recommendation-url">{{readable_url rec.url}}</span>
+                    </div>
+                </div>
+                <div class="recommendation-bottom-row">
+                    <p class="recommendation-description">{{rec.description}}</p>
+                </div>
+            </a>
+        </div>
+        {{/foreach}}
+    </div>
+    <button class="gh-btn recommendations-button" data-portal="recommendations">See all</button>
+{{/if}}

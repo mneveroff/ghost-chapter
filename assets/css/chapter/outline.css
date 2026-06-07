@@ -1,0 +1,244 @@
+@import "tocbot/dist/tocbot.css";
+
+.site-content {
+    overflow-x: clip;
+
+    .site-main {
+        .gh-content {
+            position: relative;
+        }
+    
+        .ch-outline-container {
+            position: absolute;
+            width: 0; /* hacky way to prevent overlapping content w/o z-index */
+
+            top: 0;
+            bottom: 0;
+            margin-top: 0;
+            z-index: 1001; /* because of video / figure blocks */
+            grid-column: wide-end/full-end;
+            right: calc(-3*var(--gap));
+
+            .ch-outline {
+                width: 360px;
+                padding: 0;
+
+                position: sticky; /* On larger screens, outline will stay in the same spot on the page */
+                overflow-y: clip;
+                top: 4vmin;
+                border-radius: 1rem;
+                right: 1rem;
+
+                background-color: var(--surface-color);
+        
+                >.toc-list {
+                    padding: 1.5rem 1.5rem 1.5rem 3.5rem;
+                }
+                
+                .is-active-link {
+                    color: var(--ghost-accent-color);
+        
+                    &::before {
+                        background-color: var(--ghost-accent-color);
+                    }
+                }
+
+        
+                .toc-list-item .toc-list {
+                    margin: 0; /* preventing ghost adding unnecessary margins */
+                }
+            }
+    
+            &.expanded{
+                right: 0;
+
+                transform: translateX(-360px);
+                transition: transform 0.3s ease-in-out;
+            }
+        }
+
+        .ch-outline-icon {
+            display: none; /* hiding when article isn't visible vertically */
+
+            z-index: 1002; /* because of video / figure blocks + outline itself */
+            grid-column: wide-end/full-end;
+            position: fixed;
+            bottom: var(--gap);
+            justify-self: end;
+            width: 64px;
+            height: 64px;
+            padding: 0.5rem;
+            margin: 0;
+            font-size: 0;
+            background-color: var(--surface-color);
+            border-radius: 9999px;
+
+            &.visible {
+                display: initial;
+            }
+
+            >svg {
+                max-width: 100%;
+                max-height: 100%;
+                object-fit: contain;
+            }
+
+            .close-icon {
+                display: none;
+            }
+
+            &.cross {
+                .close-icon {
+                    display: initial;
+                }
+
+                .doc-icon {
+                    display: none;
+                }
+            }
+        }
+    }
+}
+
+/* There is a non-critical issue with Safari and Firefox, see https://github.com/MNeverOff/ghost-chapter/issues/3 */
+
+/* This is a workaround to align UX generally across platforms, even if WebKit and Gecko won't keep the icon centered. */
+/* TODO: Explore JS solutions. */
+_::-webkit-full-page-media, _:future, :root .ch-outline-icon {
+    right: var(--gap) !important; 
+}
+
+_:-moz-read-write, :root .ch-outline-icon {     
+    right: var(--gap) !important;  
+}
+
+/* Outline override */
+.site-content .site-main .ch-post-chapter {
+    .ch-outline-container {
+
+        &.expanded {
+            grid-column: main-end/wide-end;
+        }
+    }
+
+    .ch-outline-icon {
+        justify-self: start;
+        margin-left: 2rem;
+    }
+}
+
+/* Mind the MIN width query */
+@media (min-width: 1991px) {
+    .site-content .site-main {
+        .ch-outline-container.expanded {
+            left: 0;
+            transform: translateX(2rem);
+            transition: transform 0.3s ease-in-out;
+
+            .ch-outline{
+                width: calc(360px-2rem);
+            }
+        }
+
+        .ch-outline-icon {
+            grid-column: wide-end/full-end;
+            margin-left: 2rem;
+            justify-self: start;
+        }
+    }
+}
+
+/* Chapter override - mind the MIN width query */
+@media (min-width: 1511px) {
+    .site-content .site-main .ch-post-chapter {
+        .ch-outline-container.expanded {
+            left: 0;
+            transform: translateX(2rem);
+            transition: transform 0.3s ease-in-out;
+
+            .ch-outline{
+                width: calc(360px-2rem);
+            }
+        }
+
+        .ch-outline-icon {
+            grid-column: main-end/wide-end;
+            justify-self: start;
+        }
+    }
+}
+
+/* Chapter override */
+@media (max-width: 1510px) {
+    .site-content .site-main .ch-post-chapter {
+        .ch-outline-container {
+            grid-column: wide-end/full-end;
+            &.expanded {
+
+                grid-column: wide-end/full-end;
+                .ch-outline{
+                    width: calc(360px);
+                }
+            }
+        }
+
+        .ch-outline-icon {
+            grid-column: wide-end/full-end;
+            justify-self: end;
+        }
+    }
+}
+
+/* When grid starts collapsing main column is 1334, empty here. */
+
+@media (max-width: 991px) {
+    .ch-outline {
+        right: 0;
+    }
+
+    .site-content .site-main .ch-outline-container {
+        margin-top: 0;
+
+        .ch-outline {
+            width: 40vw;
+        }
+
+        &.expanded {
+            right: 0;
+            grid-column: none;
+            top: 0;
+            bottom: 0;
+
+            transform: translateX(-40vw);
+        }
+    }
+
+    /* Chapter override */
+    .site-content .site-main .ch-post-chapter .ch-outline-container.expanded {
+
+        .ch-outline {
+            width: 40vw;
+        }
+    }
+}
+
+@media (max-width: 767px) {
+    .site-content .site-main .ch-outline-container {
+
+        .ch-outline {
+            width: 60vw;
+        }
+
+        &.expanded {
+            transform: translateX(-60vw);
+        }
+    }
+
+    /* Chapter override */
+    .site-content .site-main .ch-post-chapter .ch-outline-container.expanded {
+
+        .ch-outline {
+            width: 60vw;
+        }
+    }
+}

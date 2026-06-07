@@ -1,0 +1,15 @@
+{{#get "posts" filter="tags:{{chapterOrderTag}}+tags:{{chapterNametag}}" limit="100" as |related-posts|}}
+    {{#foreach related-posts}}
+        {{#match id ../../postId}}
+            {{> chapter/chapters-nav-item--line type=../../type selected='post-line-chapter-selected'}}
+            <script>
+                postChapter('{{@index}}','{{slug}}','{{title}}','{{url}}','{{chapterOrderTag}}',true);
+            </script>
+        {{else}}
+            {{> chapter/chapters-nav-item--line type=../../type}}
+            <script>
+                postChapter('{{@index}}','{{slug}}','{{title}}','{{url}}','{{chapterOrderTag}}',false);
+            </script>
+        {{/match}}
+    {{/foreach}}
+{{/get}}

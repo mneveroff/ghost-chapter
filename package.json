@@ -1,0 +1,161 @@
+{
+    "name": "chapter",
+    "description": "Ghost theme called Chapter, based on Dawn and Journal with addition of Chapters functionality.",
+    "version": "1.6.0",
+    "private": false,
+    "engines": {
+        "ghost": ">=6.0.0",
+        "node": ">=22.0.0"
+    },
+    "license": "MIT",
+    "author": {
+        "name": "Mike Neverov",
+        "email": "mike@neveroff.dev",
+        "url": "https://neveroff.dev"
+    },
+    "keywords": [
+        "ghost",
+        "theme",
+        "ghost-theme",
+        "chapter",
+        "dawn",
+        "journal"
+    ],
+    "docs": "https://github.com/mneveroff/ghost-chapter",
+    "config": {
+        "posts_per_page": 5,
+        "image_sizes": {
+            "xs": {
+                "width": 150
+            },
+            "s": {
+                "width": 400
+            },
+            "m": {
+                "width": 750
+            },
+            "l": {
+                "width": 960
+            },
+            "xl": {
+                "width": 1140
+            },
+            "xxl": {
+                "width": 1920
+            }
+        },
+        "card_assets": true,
+        "custom": {
+            "navigation_layout": {
+                "type": "select",
+                "description": "Changes the navigation bar layout.",
+                "options": [
+                    "Logo on the left",
+                    "Logo in the middle",
+                    "Stacked"
+                ],
+                "default": "Logo on the left"
+            },
+            "color_scheme": {
+                "type": "select",
+                "description": "Changes the site theme.",
+                "options": [
+                    "Auto",
+                    "Light",
+                    "Dark"
+                ],
+                "default": "Auto"
+            },
+            "alternative_logo_for_dark_mode": {
+                "type": "image",
+                "description": "Upload a logo to be used in dark mode."
+            },
+            "show_attribution": {
+                "type": "boolean",
+                "description": "Shows theme & Ghost attributions in the footer.",
+                "default": true
+            },
+            "preview_layout": {
+                "type": "select",
+                "description": "Enable to show post's feature image in posts list.",
+                "options": [
+                    "Compact",
+                    "Full"
+                ],
+                "default": "Full",
+                "group": "homepage"
+            },
+            "showcase_post": {
+                "type": "select",
+                "description": "Showcases the last post in a special section at the top of the page: home, tag or author.",
+                "options": [
+                    "Latest Featured",
+                    "Latest Posted",
+                    "None"
+                ],
+                "default": "Latest Posted",
+                "group": "homepage"
+            },
+            "hide_showcase_duplicate": {
+                "type": "boolean",
+                "description": "Hides the duplicate from \"More issues\" section if it's showcased.",
+                "default": true,
+                "group": "homepage"
+            },
+            "signup_cta_text": {
+                "type": "text",
+                "description": "Changes the text in the \"Subscrive\" call to action.",
+                "default": "Sign up now to get access to the next chapter.",
+                "group": "homepage"
+            },
+            "show_main_author_on_homepage": {
+                "type": "boolean",
+                "description": "Changes the site icon to the main (first) author's profile picture.",
+                "default": true,
+                "group": "homepage"
+            },
+            "show_author": {
+                "type": "boolean",
+                "description": "Shows the author profile image below the post.",
+                "default": true,
+                "group": "post"
+            },
+            "show_related_posts": {
+                "type": "boolean",
+                "description": "Shows related posts below the author & navigation block.",
+                "default": true,
+                "group": "post"
+            },
+            "show_post_outline": {
+                "type": "boolean",
+                "description": "Shows related posts below the author & navigation block.",
+                "default": true,
+                "group": "post"
+            }
+        }
+    },
+    "scripts": {
+        "dev": "gulp",
+        "test": "gscan . --v6",
+        "zip": "gulp zip"
+    },
+    "devDependencies": {
+        "@tryghost/shared-theme-assets": "2.7.1",
+        "autoprefixer": "10.4.17",
+        "beeper": "2.1.0",
+        "cssnano": "6.0.3",
+        "gscan": "6.2.1",
+        "gulp": "4.0.2",
+        "gulp-concat": "2.6.1",
+        "gulp-livereload": "4.0.2",
+        "gulp-postcss": "9.1.0",
+        "gulp-uglify": "3.0.2",
+        "gulp-zip": "5.1.0",
+        "postcss": "8.4.33",
+        "postcss-easy-import": "4.0.0",
+        "pump": "3.0.0"
+    },
+    "dependencies": {
+        "tocbot": "^4.25.0"
+    }
+}

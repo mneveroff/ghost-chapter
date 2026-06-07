@@ -1,0 +1,26 @@
+<article class="post-line {{visibility}} {{post_class}}">
+
+    <div class="post-line-top">
+        <h2 class="gh-card-title">{{title}}</h2>
+    </div>
+
+    <footer>
+        <div class="single-meta">
+            <time class="single-meta-item single-meta-date" datetime="{{date format="YYYY-MM-DD"}}">{{date}}</time>
+            {{#if featured}}
+                <span class="single-meta-item single-meta-featured ch-icon-container"> {{> icons/fire class="ch-icon"}} Featured</span>
+            {{/if}}
+            {{#if reading_time}}
+                <span class="single-meta-item single-meta-length"> {{reading_time}}</span>
+            {{/if}}
+            {{#primary_tag}}
+                <span class="single-meta-item single-meta-tag post-tag"> {{name}}</span>
+            {{/primary_tag}}
+            {{#if @site.comments_enabled}}
+                <span class="single-meta-item single-meta-comment"> {{comment_count empty="Add a comment" autowrap="false"}}</span>
+            {{/if}}
+        </div>
+    </footer>
+    <a class="u-permalink" href="{{url}}" aria-label="{{title}}"></a>
+
+</article>

@@ -1,0 +1,21 @@
+<script>
+    document.querySelectorAll('pre').forEach((pre) => {
+        pre.addEventListener('click', () => {
+            // Copy the text
+            const textarea = document.createElement('textarea');
+            textarea.textContent = pre.textContent;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+
+            // Show the "Content copied!" message
+            pre.classList.add('show-copy-message');
+
+            // Hide the message after 3 seconds
+            setTimeout(() => {
+                pre.classList.remove('show-copy-message');
+            }, 3000);
+        });
+    });
+</script>

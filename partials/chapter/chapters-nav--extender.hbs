@@ -1,0 +1,8 @@
+{{!-- This helper is necessary to bypass ghost's {{get}} syntax restrictions, see https://forum.ghost.org/t/escape-get-context-in-handlebars-to-reference-the-post-context/44782/3 --}}
+{{#get 'tags' filter="slug:~$'00'+visibility:internal+id:{{tagId}}" as |subheader|}}
+    {{#if subheader}}
+        {{> chapter/chapters-nav-item type="subheader" postId=../postId chapterOrderTag=../chapterOrderTag chapterNametag=../chapterNametag lazyLoad=true}}
+    {{else}}
+        {{> chapter/chapters-nav-item type="item" postId=../postId chapterOrderTag=../chapterOrderTag chapterNametag=../chapterNametag lazyLoad=true}}
+    {{/if}}
+{{/get}}

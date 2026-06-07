@@ -1,0 +1,12 @@
+.dg-surface {
+    --elevation-100: 4px 4px 8px rgba(0, 0, 0, 0.4);
+
+    padding: 1.5rem;
+    background-color: var(--surface-color);
+    border-radius: 1rem;
+}
+
+/* Standalone elevation classes */
+.dg-elevation-100 {
+    box-shadow: var(--elevation-100);
+}

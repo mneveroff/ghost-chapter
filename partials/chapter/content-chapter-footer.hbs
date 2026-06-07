@@ -1,0 +1,70 @@
+{{#is "post"}}
+    <div class="gh-canvas">
+        <footer class="single-footer">
+            
+            <div class="single-footer-left">
+                <div class="navigation navigation-previous">
+                    <a class="navigation-link" href="{{primary_tag.url}}">
+                        <span class="navigation-label">{{> icons/arrow-left}}</span>
+                        <h4 class="navigation-title">More in #{{primary_tag.name}}</h4>
+                    </a>
+                </div>
+            </div>
+
+            {{#if @custom.show_author}}
+                <div class="single-footer-middle dg-surface">
+                    <div class="single-footer-top">
+                        <h3 class="single-footer-title">Published by</h3>
+                        <div class="author-list">
+                            {{#foreach authors}}
+                            <div class="author-image-placeholder u-placeholder square">
+                                <a href="{{url}}" title="{{name}}">
+                                    <img class="author-image u-object-fit" src="{{img_url profile_image size="xs"}}" alt="{{name}}" loading="lazy">
+                                </a>
+                            </div>
+                            {{/foreach}}
+                        </div>
+                    </div>
+                </div>
+            {{/if}}
+
+            <div class="single-footer-right">
+                <div class="navigation navigation-next">
+                    <a class="navigation-link" href="{{primary_tag.url}}">
+                        <h4 class="navigation-title">More in #{{primary_tag.name}}</h4>
+                        <span class="navigation-label"> {{> icons/arrow-right}}</span>
+                    </a>
+                </div>
+            </div>
+
+            <script>
+                function decodeHtml(html) {
+                    var txt = document.createElement("textarea");
+                    txt.innerHTML = html;
+                    return txt.value;
+                }
+
+                // Assuming 'chapters' is your array of chapter objects
+                let currentChapterIndex = chapters.findIndex(chapter => chapter.current);
+
+                // Update the previous navigation link if the current chapter is not the first chapter
+                if (currentChapterIndex > 0) {
+                    let previousChapter = chapters[currentChapterIndex - 1];
+                    let previousNavigationLink = document.querySelector('.navigation-previous .navigation-link');
+                    previousNavigationLink.href = previousChapter.url;
+                    let previousNavigationTitle = previousNavigationLink.querySelector('.navigation-title');
+                    previousNavigationTitle.textContent = decodeHtml(previousChapter.title);
+                }
+
+                // Update the next navigation link if the current chapter is not the last chapter
+                if (currentChapterIndex < chapters.length - 1) {
+                    let nextChapter = chapters[currentChapterIndex + 1];
+                    let nextNavigationLink = document.querySelector('.navigation-next .navigation-link');
+                    nextNavigationLink.href = nextChapter.url;
+                    let nextNavigationTitle = nextNavigationLink.querySelector('.navigation-title');
+                    nextNavigationTitle.textContent = decodeHtml(nextChapter.title);
+                }
+            </script>
+        </footer>
+    </div>
+{{/is}}

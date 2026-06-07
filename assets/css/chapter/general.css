@@ -1,0 +1,314 @@
+/* Introducing more surfaces */
+.gh-head, .gh-foot {
+    background-color: var(--surface-color);
+}
+
+/* Handling hidden attribution setting */
+.ch-hidden-attribution {
+    display: none;
+}
+
+.ch-foot-single-column {
+    grid-template-columns: 1fr;
+
+    .gh-copyright {
+        margin-top: 1rem;
+    }
+}
+
+/* Icons */
+.ch-icon-container {
+
+    >svg {
+        object-fit: contain;
+        max-width: 1.1em;
+        max-height: 1.1em;
+    };
+}
+
+.single-meta-featured {
+    color: var(--ghost-accent-color);
+   
+    &::before {
+        color: var(--secondary-text-color);
+    }
+
+    >svg {
+        margin-bottom: -2px;
+    }
+}
+
+/* layout overrides */
+.site-content, .gh-foot {
+    padding: 6rem var(--gap) 6rem var(--gap);
+}
+
+.post-card-showcased {
+    margin-bottom: 6rem;
+}
+
+/* Existing theme overrides */
+.gh-foot-menu {
+    text-align: center;
+}
+
+/* Adding custom stiles for layouts HTML helpers */
+.ch-layout-2-columns {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 2rem;
+
+    .ch-layout-column {
+        flex: 1 0 0;
+    }
+}
+
+/* Replicating Ghost's content styles for consistent formatting inside nested elements */
+.ch-nested-content {
+    > * + * {
+        margin-top: calc(1.6em * var(--content-spacing-multiplier, 1));
+        margin-bottom: 0;
+    }
+
+    > .kg-card + [id] {
+        margin-top: calc(2em * var(--content-spacing-multiplier, 1)) !important;
+    }
+
+    > [id] {
+        margin: 0;
+    }
+
+    > [id] + * {
+        margin-top: calc(0.8em * var(--content-spacing-multiplier, 1));
+    }
+
+    > [id]:not(:first-child) {
+        margin-top: calc(1.6em * var(--content-spacing-multiplier, 1));
+    }
+
+    > hr, > blockquote {
+        position: relative;
+        margin-top: calc(2.4em * var(--content-spacing-multiplier, 1));
+    }
+
+    > hr + *, > blockquote + * {
+        margin-top: calc(2.4em * var(--content-spacing-multiplier, 1));
+    }
+}
+
+/* Adding a copy icon to all code blocks */
+pre {
+    position: relative; /* Needed to position the pseudo-element */
+    pointer-events: none; /* A smart hack from https://stackoverflow.com/a/58432091/4540996 */
+    white-space: pre-wrap;
+    overflow: auto; /* Removing needless scrollbar */
+}
+
+pre::before {
+    content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"><path d="M6 11C6 8.17157 6 6.75736 6.87868 5.87868C7.75736 5 9.17157 5 12 5H15C17.8284 5 19.2426 5 20.1213 5.87868C21 6.75736 21 8.17157 21 11V16C21 18.8284 21 20.2426 20.1213 21.1213C19.2426 22 17.8284 22 15 22H12C9.17157 22 7.75736 22 6.87868 21.1213C6 20.2426 6 18.8284 6 16V11Z" stroke="%231F2937" stroke-width="1.5"/><path d="M6 19C4.34315 19 3 17.6569 3 16V10C3 6.22876 3 4.34315 4.17157 3.17157C5.34315 2 7.22876 2 11 2H15C16.6569 2 18 3.34315 18 5" stroke="%231F2937" stroke-width="1.5"/></svg>');
+    position: absolute;
+    top: 13px;
+    right: 2.4rem;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    
+    pointer-events: auto;
+    padding: 4px;
+    border-radius: 4px;
+}
+
+@media (prefers-color-scheme: dark) {
+    pre::before {
+        content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"><path d="M6 11C6 8.17157 6 6.75736 6.87868 5.87868C7.75736 5 9.17157 5 12 5H15C17.8284 5 19.2426 5 20.1213 5.87868C21 6.75736 21 8.17157 21 11V16C21 18.8284 21 20.2426 20.1213 21.1213C19.2426 22 17.8284 22 15 22H12C9.17157 22 7.75736 22 6.87868 21.1213C6 20.2426 6 18.8284 6 16V11Z" stroke="%23F3F4F6" stroke-width="1.5"/><path d="M6 19C4.34315 19 3 17.6569 3 16V10C3 6.22876 3 4.34315 4.17157 3.17157C5.34315 2 7.22876 2 11 2H15C16.6569 2 18 3.34315 18 5" stroke="%23F3F4F6" stroke-width="1.5"/></svg>');
+    }
+}
+
+pre::after {
+    content: "Content copied!";
+    position: absolute;
+    top: 13px;
+    right: calc(2.4rem+32px+1rem);
+    font-size: 16px;
+    opacity: 0;
+    transition: opacity 1.5s cubic-bezier(0,1,.25,1);
+
+    background-color: var(--surface-secondary-color);
+    padding: 4px;
+    padding-left: 8px;
+    border-radius: 4px;
+}
+
+pre.show-copy-message {
+
+    &::before {
+        background-color: var(--surface-secondary-color);
+    }
+
+    &::after {
+        opacity: 1;
+    }
+}
+
+/* Improving pre's readability in general and inside of a toggle card */
+pre {
+    background-color: var(--surface-color);
+    border-radius: 0.25rem;
+}
+
+.kg-toggle-card pre {
+    background-color: var(--surface-secondary-color);
+
+    &.show-copy-message::before, &::after {
+        background-color: var(--surface-tertiary-color);
+    }
+}
+
+/* Improving cards readability  */
+.kg-card.kg-toggle-card, .kg-card.kg-audio-card, .kg-card.kg-file-card, .kg-card .kg-product-card-container, .kg-card .kg-bookmark-content {
+    background-color: var(--surface-color);
+}
+
+.kg-toggle-card {
+    .kg-card.kg-toggle-card, .kg-card.kg-audio-card, .kg-card.kg-file-card, .kg-card .kg-product-card-container, .kg-card .kg-bookmark-content {
+        background-color: var(--surface-secondary-color);
+    }
+}
+
+/* When grid starts collapsing main column */
+@media (max-width: 1344px) {
+    .single-header.gh-canvas { /* Because it makes very little sense otherwise for wide feature images */
+        grid-template-columns: [full-start wide-start] var(--full) [main-start] var(--main) [main-end] var(--full) [wide-end full-end]
+    }
+}
+
+/* Posts and Pages */
+@media (max-width: 864px) {
+    .single-content, .single-header {
+        grid-template-columns: 
+        [full-start wide-start main-start] 0 
+        var(--full) [main-end wide-end full-end];
+    }
+}
+
+/* Fixing tables themselves */
+.gh-content table:not(.gist table) {
+    display: inline-table;
+    background: none;
+    background-color: var(--surface-color);
+    border-radius: 4px;
+
+    thead th:first-child {
+        border-top-left-radius: 4px;
+    }
+
+    thead th:last-child {
+        border-top-right-radius: 4px;
+    }
+
+    th {
+        background-color: var(--surface-secondary-color);
+    }
+}
+
+/* Fixing shadows within tables */
+.gh-content table:not(.gist table) td:first-child, .gh-content table:not(.gist table) td:last-child {
+    background: none;
+}
+
+/* Fixing table wrapping within column */
+.gh-content table:not(.gist table) {
+    display: block;
+    overflow-x: auto;
+
+    td {
+        white-space: normal;
+    }
+}
+
+/* Fixing hr visibility */
+hr {
+    background-color: var(--color-secondary-text);
+}
+
+/* Improving visual separation since the goal is to use H2 as section headers */
+.gh-content h2 {
+    font-size: 2.2em;
+}
+
+/* Improving Advanced Toggle */
+.kg-toggle-content :first-child {
+    margin-top: 1rem;
+}
+
+/* Adding copying to link headings within content */
+.gh-content {
+    h1::after, h2::after, h3::after, h4::after, h5::after, h6::after {
+        content: "🔗";
+        display: none;
+        margin-left: 0.5em;
+        font-size: 0.65em;
+        opacity: 0.5;
+        cursor: pointer;
+    }
+
+    h1:hover::after, h2:hover::after, h3:hover::after, h4:hover::after, h5:hover::after, h6:hover::after {
+        display: inline;
+    }
+
+    h1.show-copy-message::after, h2.show-copy-message::after, h3.show-copy-message::after, h4.show-copy-message::after, h5.show-copy-message::after, h6.show-copy-message::after {
+        content: "Link copied!";
+        display: inline;
+        opacity: 0;
+        background-color: var(--surface-secondary-color);
+        padding: 2px 8px;
+        border-radius: 4px;
+        transition: opacity 1.5s cubic-bezier(0,1,.25,1);
+    }
+
+    h1.show-copy-message:hover::after, h2.show-copy-message:hover::after, h3.show-copy-message:hover::after, h4.show-copy-message:hover::after, h5.show-copy-message:hover::after, h6.show-copy-message:hover::after {
+        opacity: 1;
+    }
+
+    .kg-toggle-heading {
+        h1::after, h2::after, h3::after, h4::after, h5::after, h6::after {
+            display: none;
+        }
+    }
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+@media (max-width: 991px) {
+    .site-content, .gh-foot {
+        padding-top: 4rem;
+        padding-bottom: 4rem;
+    }
+}
+
+@media (max-width: 767px) {
+    .is-head-open:not(.is-head-brand):not(.is-head-dark):not(.is-head-transparent) #gh-head, .is-head-open #gh-head .gh-head-actions {
+        background-color: var(--surface-color);
+    }
+
+    .site-content, .gh-foot {
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+    }
+
+    .gh-foot-inner.gh-inner:not(.ch-foot-single-column) {
+        gap: 1rem;
+
+        .gh-copyright {
+            order: 2;
+        }
+
+        .gh-powered-by  {
+            order: 3;
+        }
+    }
+}

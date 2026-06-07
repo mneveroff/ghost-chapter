@@ -1,0 +1,64 @@
+{{!< default}}
+{{!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template --}}
+
+<main class="site-main gh-outer">
+    {{!-- Adding the latest post in large preview but only if we're not in pagination (i.e. page 1) --}}
+    <div class="gh-inner">
+        {{#match @custom.showcase_post 'Latest Posted'}}
+            {{^is "paged"}}
+                {{#foreach posts limit="1"}}
+                    {{> chapter/post-card class="post-card-showcased"}}
+                {{/foreach}}
+            {{/is}}
+        {{else}}
+            {{#match @custom.showcase_post 'Latest Featured'}}
+                {{^is "paged"}}
+                    {{#get "posts" include="tags, authors, tiers" filter="featured:true" limit="1" as |featured|}}
+                        {{#foreach featured}}
+                            {{> chapter/post-card class="post-card-showcased"}}
+                        {{/foreach}}
+                    {{/get}}
+                {{/is}}
+            {{/match}}
+        {{/match}}
+        
+        <div class="gh-wrapper">
+            <section class="gh-section">
+                {{#match @custom.showcase_post 'Latest Posted'}}
+                    <h2 class="gh-section-title">More issues</h2>
+                {{else}}
+                    {{#match @custom.showcase_post 'Latest Featured'}}
+                        <h2 class="gh-section-title">More issues</h2>
+                    {{/match}}
+                {{/match}}
+                <div class="post-feed gh-feed">
+                    {{^is "paged"}}
+                        {{#match @custom.showcase_post 'Latest Posted'}}
+                            {{^is "paged"}}
+                                {{#foreach posts from="2"}}
+                                    {{> chapter/post-card}}
+                                {{/foreach}}
+                            {{/is}}
+                        {{else}}
+                            {{#foreach posts}}
+                                {{> chapter/post-card}}
+                            {{/foreach}}
+                        {{/match}}
+                    {{else}}
+                        {{#foreach posts}}
+                            {{> chapter/post-card}}
+                        {{/foreach}}
+                    {{/is}}
+                </div>
+
+                {{> base/pagination}}
+                
+            </section>
+
+            {{> chapter/sidebar}}
+        </div>
+    </div>
+</main>
+
+{{> utility/index-duplicate-remover}}

@@ -1,0 +1,19 @@
+{{^if @member.paid}}
+    <div class="gh-signup">
+        {{^if @member}}
+            <p class="gh-signup-description">{{@custom.signup_cta_text}}</p>
+
+            <a class="gh-subscribe-input" href="#/portal/signup" data-portal="signup">
+                <div class="gh-subscribe-input-text">
+                    chapter@example.com
+                </div>
+                <div class="gh-subscribe-input-btn">Subscribe</div>
+            </a>
+        {{else}}
+            {{#if @setting.paid_members_enabled}}
+                <p class="gh-signup-description">Upgrade to a paid account to get full access.</p>
+                <a class="gh-signup-btn gh-btn gh-primary-btn" href="#/portal/account/plans" data-portal="account/plans">Upgrade now</a>
+            {{/if}}
+        {{/if}}
+    </div>
+{{/if}}

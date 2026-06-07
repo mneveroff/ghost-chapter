@@ -1,0 +1,93 @@
+<aside class="ch-sidebar">
+    <section class="gh-section">
+        {{#match @custom.showcase_post 'Latest Posted'}}
+            <h2 class="gh-section-title">About</h2>
+        {{else}}
+            {{#match @custom.showcase_post 'Latest Featured'}}
+                <h2 class="gh-section-title">About</h2>
+            {{/match}}
+        {{/match}}
+        <section class="author gh-canvas">
+
+            <div class="author-image-placeholder u-placeholder square">
+                <img class="author-image u-object-fit" src="{{img_url profile_image size="xs"}}" alt="{{name}}">
+            </div>
+
+            {{#if website}}
+                <h1 class="author-name">
+                    <a href="{{website}}" target="_blank" rel="noopener noreferrer">{{name}}</a>
+                </h1>
+            {{else}}
+                <h1 class="author-name">{{name}}</h1>
+            {{/if}}
+
+            {{#if location}}
+                <span class="author-meta">{{location}}</span>
+            {{/if}}
+
+            <div class="author-bio">{{bio}}</div>
+
+            <div class="share author-social">
+                {{#if facebook}}
+                    <a class="share-link share-link-facebook author-social-item" href="https://www.facebook.com/{{facebook}}" target="_blank" rel="noopener noreferrer">
+                        {{> icons/facebook}}
+                        Facebook
+                    </a>
+                {{/if}}
+                {{#if twitter}}
+                    <a class="share-link share-link-twitter author-social-item" href="https://twitter.com/{{twitter}}" target="_blank" rel="noopener noreferrer">
+                        {{> icons/twitter}}
+                        Twitter
+                    </a>
+                {{/if}}
+            </div>
+
+        </section>
+
+        {{#if @site.members_enabled}}
+            {{> chapter/sidebar--cta}}
+        {{/if}}
+    </section>
+
+    {{#get "posts" filter="featured:true" limit="100" as |featured|}}
+        {{#if featured}}
+            <section class="gh-section">
+                <h3 class="gh-section-title">Featured</h3>
+
+                <div class="gh-featured gh-feed">
+                    {{#foreach featured}}
+                        {{> chapter/post-line}}
+                    {{/foreach}}
+                </div>
+            </section>
+        {{/if}}
+    {{/get}}
+
+    {{#get "tags" include="count.posts" limit="5" order="count.posts desc" as |topic|}}
+        <section class="gh-section">
+            <h3 class="gh-section-title">Topics</h3>
+
+            <div class="gh-topic">
+                {{#foreach topic limit="5"}}
+                    <a class="gh-topic-item" href="{{url}}">
+                        <h3 class="gh-topic-name">{{name}}</h3>
+                        <span class="gh-topic-count">
+                            {{plural count.posts empty="0 issues" singular="% issue" plural="% issues"}}
+                        </span>
+                    </a>
+                {{/foreach}}
+            </div>
+        </section>
+    {{/get}}
+
+    {{#if @site.recommendations_enabled}}
+        <section class="gh-section">
+            <h3 class="gh-section-title">Recommendations</h3>
+
+            <div class="gh-recommendations">
+                {{recommendations limit="3"}}
+            </div>
+        </section>
+    {{/if}}
+    
+</aside>

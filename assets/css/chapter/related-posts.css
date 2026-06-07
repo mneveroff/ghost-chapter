@@ -1,0 +1,29 @@
+.related-wrapper {
+    background: none;
+    margin-top: 6rem;
+    padding: 0;
+
+    .inner-wrapper {
+        padding: 3rem;
+
+        .post-line {
+            margin-bottom: 1rem;
+        }
+    }
+}
+
+@media (max-width: 991px) {
+    .related-wrapper {
+        margin-top: 5rem; 
+
+        .inner-wrapper {
+            padding: 2rem;
+        }
+    }
+}
+
+@media (max-width: 767px) {
+    .related-wrapper {
+        margin-top: 4rem; 
+    }
+}

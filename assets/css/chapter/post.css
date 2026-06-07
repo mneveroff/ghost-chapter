@@ -1,0 +1,83 @@
+/* Adding gentle border radius to images and covers */
+figure.single-media .u-placeholder, figure.single-media .u-placeholder>img {
+    border-radius: 1rem;
+}
+
+figure>.kg-video-container {
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.kg-image, .kg-gallery-image>img, .kg-video-overlay {
+    border-radius: 0.5rem;
+}
+
+.post .single-footer {
+
+    margin-top: 6rem;
+
+    .single-footer-middle {
+        margin: 0 2rem 0 2rem;
+    }
+}
+
+.navigation-previous, .navigation-next {
+    .navigation-link {
+        width: initial;
+
+        .navigation-label {
+            display: flex;
+        }
+    }
+}
+
+.navigation-previous {
+
+    .navigation-label {
+        margin-right: 1rem;
+    }
+}
+
+.navigation-next {
+    text-align: right;
+
+    .navigation-label {
+        margin-left: 1rem;
+    }
+}
+
+.gh-comments {
+    margin-top: 6rem;
+}
+
+@media (max-width: 991px) {
+    .post .single-footer {
+        margin-top: 5rem;
+    }
+
+    .gh-comments {
+        margin-top: 5rem;
+    }
+}
+
+@media (max-width: 767px) {
+    .single.post {
+        
+        .single-footer {
+            flex-direction: column;
+            row-gap: 2rem;
+
+            .single-footer-middle {
+                order: -1;
+            }
+        }
+
+        .post .single-footer {
+            margin-top: 4rem;
+        }
+    
+        .gh-comments {
+            margin-top: 4rem;
+        }
+    }
+}

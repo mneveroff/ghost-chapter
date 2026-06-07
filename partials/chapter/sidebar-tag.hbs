@@ -1,0 +1,80 @@
+<aside class="ch-sidebar">
+    
+    <section class="gh-section">
+
+        {{#tag}}
+            {{#match @custom.showcase_post 'Latest Posted'}}
+                <h2 class="gh-section-title">Selected Tag</h2>
+            {{else}}
+                {{#match @custom.showcase_post 'Latest Featured'}}
+                    <h2 class="gh-section-title">Selected Tag</h2>
+                {{/match}}
+            {{/match}}
+
+            <section class="tag">
+
+                <div class="gh-canvas">
+
+                    <h1 class="tag-name">{{name}}</h1>
+
+                    {{#if description}}
+                        <div class="tag-description">{{description}}</div>
+                    {{/if}}
+
+                    {{#if feature_image}}
+                        <div class="tag-media u-placeholder horizontal kg-width-wide">
+                            <img class="u-object-fit" srcset="{{> utility/srcset}}" src="{{img_url feature_image size="l"}}" alt="{{name}}">
+                        </div>
+                    {{/if}}
+
+                </div>
+
+            </section>
+        {{/tag}}
+        
+    </section>
+
+    {{#tag}}
+        {{#get "posts" filter="featured:true+tags:{{slug}}" limit="3" as |featured|}}
+            {{#if featured}}
+                <section class="gh-section">
+                    <h3 class="gh-section-title">Featured with this tag</h3>
+
+                    <div class="gh-featured gh-feed">
+                        {{#foreach featured}}
+                            {{> chapter/post-line}}
+                        {{/foreach}}
+                    </div>
+                </section>
+            {{/if}}
+        {{/get}}
+
+        {{#get "tags" filter="id:-{{id}}" include="count.posts" limit="5" order="count.posts desc" as |topic|}}
+            <section class="gh-section">
+                <h3 class="gh-section-title">Other popular tags</h3>
+
+                <div class="gh-topic">
+                    {{#foreach topic limit="5"}}
+                        <a class="gh-topic-item" href="{{url}}">
+                            <h3 class="gh-topic-name">{{name}}</h3>
+                            <span class="gh-topic-count">
+                                {{plural count.posts empty="0 issues" singular="% issue" plural="% issues"}}
+                            </span>
+                        </a>
+                    {{/foreach}}
+                </div>
+            </section>
+        {{/get}}
+    {{/tag}}
+
+    {{#if @site.recommendations_enabled}}
+        <section class="gh-section">
+            <h3 class="gh-section-title">Recommendations</h3>
+
+            <div class="gh-recommendations">
+                {{recommendations limit="3"}}
+            </div>
+        </section>
+    {{/if}}
+
+</aside>

@@ -1,0 +1,208 @@
+.gh-wrapper {
+    display: grid;
+    grid-template-columns: 2fr 4fr;
+    column-gap: 2.4rem;
+}
+
+.ch-sidebar {
+    min-width: 0; /* Allows child flexbox elements to be truncated */
+    padding-right: 1.6rem;
+    font-size: 1.4rem;
+    height: -moz-max-content;
+    height: max-content;
+    /* position: sticky; */ /* This makes it unreadable unless all page is scrolled on limited height devices */
+    position: inherit;
+    top: 4.8rem;
+    order: -1;
+
+    .author {
+        /* Letting the following element deal with it */
+        margin-bottom: 0;
+    }
+
+    .author-image {
+        border-radius: 100%;
+    }
+
+    /* Static colour override */
+    .share-link-facebook, .share-link-twitter {
+        color: var(--white-color) !important;
+
+        >svg {
+            max-width: 20px;
+            max-height: 20px;
+            object-fit: contain;
+            margin-right: 0.5rem;
+        }
+    }
+
+    .post-line + .post-line {
+        margin-top:2rem;
+    }
+
+    .gh-section {
+
+        .tag-name {
+            color: var(--darker-gray-color);
+        }
+    }
+
+    .gh-section + .gh-section {
+        margin-top: 8rem;
+    }
+}
+
+.gh-section-title, .post-line-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2.4rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+}
+
+.gh-section-title::after {
+    flex-grow: 1;
+    height: 1px;
+    margin-left: 1.6rem;
+    content: "";
+    background-color: var(--color-light-gray);
+}
+.gh-about {
+    display: flex;
+
+    .gh-about-icon {
+        width: 64px;
+        height: 64px;
+        margin-right: 2rem;
+    }
+
+    .gh-about-wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .gh-about-title {
+        font-size: 2.1rem;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+    }
+    
+    .gh-about-description {
+        margin-top: 0.4rem;
+        line-height: 1.55;
+    }
+}
+
+.gh-signup {
+    margin-top: 2.8rem;
+
+    .gh-signup-description {
+        line-height: 1.55;
+    }
+
+    .gh-subscribe-input {
+        height: 48px;
+        padding-left: 1.2rem;
+        margin-top: 1.5rem;
+        margin-bottom: 0;
+        font-size: 1.5rem;
+
+        align-items: center;
+        background-color: var(--color-white);
+        border: 1px solid var(--color-light-gray);
+        border-radius: 6px;
+        color: var(--color-secondary-text);
+        display: flex;
+        justify-content: space-between;
+        max-width: 440px;
+        padding: 0 1.6rem;
+        width: 100%;
+
+        .gh-subscribe-input-text {
+            overflow-x: hidden; 
+            text-overflow: ellipsis;
+            white-space: nowrap; 
+            flex-grow: 1; 
+        }
+
+        .gh-subscribe-input-btn {
+            color: var(--ghost-accent-color);
+            font-size: 1.2rem;
+            font-weight: 600;
+            letter-spacing: .01em;
+            text-transform: uppercase;
+            flex-shrink: 0; 
+        }
+    }
+
+    .gh-signup-btn {
+        margin-top: 1.6rem;
+    }
+}
+
+.gh-featured {
+    .gh-card-title {
+        font-size: 1.9rem;
+        font-weight: 600;
+        line-height: 1.25;
+        letter-spacing: -0.01em;
+    }
+
+    .gh-card-excerpt {
+        margin-top: 0.8rem;
+        font-family: var(--font-sans);
+        font-size: inherit;
+        line-height: 1.55;
+        color: var(--color-secondary-text);
+        letter-spacing: 0;
+    }
+
+    .gh-card-meta {
+        margin-top: 1.6rem;
+    }
+
+    .gh-card + .gh-card {
+        margin-top: 2.8rem;
+    }
+}
+
+.gh-topic-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.gh-topic-item + .gh-topic-item {
+    margin-top: 1.6rem;
+}
+
+.gh-topic-name {
+    font-size: 1.7rem;
+    font-weight: 600;
+    letter-spacing: 0;
+}
+
+.has-serif-title .gh-topic-name {
+    font-family: var(--font-serif);
+}
+
+.gh-topic-count {
+    padding: 0.4rem 0.8rem;
+    font-size: 1.3rem;
+    line-height: 1;
+    border: 1px solid var(--color-light-gray);
+    border-radius: 32px;
+}
+
+@media (max-width: 767px) {
+    .gh-wrapper {
+        grid-template-columns: 1fr;
+    }
+
+    .ch-sidebar {
+        order: 0;
+    }
+}
