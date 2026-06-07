@@ -100,7 +100,7 @@
     }
 }
 
-/* There is a non-critical issue with Safari and Firefox, see https://github.com/MNeverOff/ghost-chapter/issues/3 */
+/* There is a non-critical issue with Safari and Firefox, see https://github.com/mneveroff/ghost-chapter/issues/3 */
 
 /* This is a workaround to align UX generally across platforms, even if WebKit and Gecko won't keep the icon centered. */
 /* TODO: Explore JS solutions. */
