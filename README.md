@@ -4,7 +4,7 @@ A combination of the highly functional Ghost [Dawn](https://github.com/tryghost/
 
 ![Chapter theme demonstration](assets/images/demo.png)
 
-**Demo**: https://ghost-chapter.neveroff.dev/
+**Demo**: <https://ghost-chapter.neveroff.dev/>
 
 **Requires Ghost 6.0 or later**.
 
