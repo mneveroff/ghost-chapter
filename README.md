@@ -4,7 +4,7 @@ A combination of the highly functional Ghost [Dawn](https://github.com/tryghost/
 
 ![Chapter theme demonstration](assets/images/demo.png)
 
-**Demo**: <https://ghost-chapter.neveroff.dev/>
+**Demo**: <https://ghost-chapter.neveroff.dev/> — demo-only header/footer snippets (disabled buy CTA, GitHub links) live in [`docs/demo-site/`](docs/demo-site/), not in the theme zip.
 
 **Requires Ghost 6.0 or later**.
 
@@ -38,9 +38,12 @@ Chapter 1.6.0 requires Ghost 6. Upgrade your instance before uploading this them
 
 ## Development
 
-Styles are compiled using Gulp/PostCSS. You need **Node.js 22+** and [pnpm](https://pnpm.io/installation).
+Styles are compiled using Gulp/PostCSS. Ghost 6 requires **Node.js 22** (not 24). This repo includes an `.nvmrc`; use [nvm](https://github.com/nvm-sh/nvm) so your shell matches before working on the theme or running Ghost locally.
 
 ```bash
+# Use the Node version Ghost expects (run in this directory)
+nvm use
+
 # Install dependencies
 pnpm install
 
@@ -51,10 +54,14 @@ pnpm dev
 For live preview against a local Ghost install, run these in separate terminals:
 
 ```bash
+# Terminal 1 — theme assets (this directory)
+nvm use
 pnpm dev
 
-# From your Ghost install directory
-ghost run -D
+# Terminal 2 — Ghost (your install directory, e.g. ../.. from here)
+nvm use 22
+ghost doctor   # optional sanity check
+ghost start    # or: ghost run -D for theme development
 ```
 
 Edit files under `assets/css/`; compiled output goes to `assets/built/`.
