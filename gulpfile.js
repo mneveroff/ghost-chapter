@@ -66,6 +66,7 @@ function js(done) {
 
 const zipSrcGlobs = [
     '**',
+    '!docs', '!docs/**',
     '!node_modules', '!node_modules/**',
     '!dist', '!dist/**',
     '!yarn-error.log',
