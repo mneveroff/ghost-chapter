@@ -2,7 +2,9 @@
 
 A combination of the highly functional Ghost [Dawn](https://github.com/tryghost/dawn) and quite well-structured [Journal](https://github.com/tryghost/journal) themes, that together adapt to the reader's preferences and allow for good structure.
 
-**Demo**: https://ghost-chapter.neveroff.dev/
+![Chapter theme demonstration](assets/images/demo.png)
+
+**Demo**: <https://ghost-chapter.neveroff.dev/>
 
 **Requires Ghost 6.0 or later**.
 
